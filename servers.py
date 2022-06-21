@@ -7,7 +7,7 @@ from typing import Optional, List, TypeVar, Dict
 
 class Product:
     def __init__(self, name: str, price: float):
-        if re.fullmatch('[a-zA-Z]+[0-9]+', name): #tutaj był bład
+        if re.fullmatch('[a-zA-Z]+[0-9]+', name):
             self.name = name
             self.price = price
         else:
@@ -24,7 +24,7 @@ class ServerError(Exception):
     pass
 
 class TooManyProductsFoundError(ServerError):
-    # Reprezentuje wyjątek związany ze znalezieniem zbyt dużej liczby produktów.
+    # Exception related to too many products found
     def __init__(self, val: float, new_value: float):
         self.val = val
         self.new_value = new_value
@@ -55,7 +55,7 @@ class Server(ABC):
                 entries.append(p)
             if len(entries) > self.n_max_returned_entries:
                 raise TooManyProductsFoundError(val=len(entries), new_value=self.n_max_returned_entries)
-        # return entries #tuaj są nieposortowana lista
+        # return entries # Unsorted list
         return sorted(entries, key=lambda price_of_product: price_of_product.price)
 
 
